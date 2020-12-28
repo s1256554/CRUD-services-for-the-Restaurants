@@ -1,0 +1,90 @@
+<html>
+<head>
+	<title></title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	
+<style>
+.jumbotron {
+  padding : 1em 0em 1em 1em;
+  margin : 0em 0em 0.5em 0em;
+  background : #2286BB;
+  color : white;
+}
+
+.container-fluid{
+  padding : 0;
+}
+
+.container{
+  padding : 1em; 
+}
+
+.searchPanel{
+  margin : 1.5em 0em 0em 1.5em;
+}
+
+
+</style>
+
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+	<div class="container-fluid">
+		<div class="jumbotron">
+			<h3><b>Search</b></h3>
+		</div>
+	</div>
+	<div class="container-fluid searchPanel">
+        <form action="/searchR" method="GET">
+            <b><%= message %></b><br>
+            Name: <input name="name" id="name" type="text"> 
+            Borough: <input name="borough" id="borough" type="text"/> 
+            Cuisine: <input name="cusine" id="cusine" type="text"/> 
+            <button class="btn btn-secondary" value="search" type="submit">SEARCH</button>
+        </form>
+        <% if(results.length>0){ %>
+            <table style="width:80%">
+                <tr>
+                    <th>Name</th>
+                    <th>Borough</th>
+                    <th>Cuisine</th>
+                    <th>Address</th>
+                    <th>Document</th>
+                    <th>Delete</th>
+                    <th>rate</th>
+                    <th>photo</th>
+                </tr>
+                <% for(var i=0;i<results.length;i++){ %>
+                    <tr>
+                        <td><%= results[i].name%></td>
+                        <td><%= results[i].borough%> </td>
+                        <td><%= results[i].cuisine%> </td>
+                        <td style="word-wrap: break-word"><%= results[i].address.building %>, <%= results[i].address.street %>, <%= results[i].address.zipcode %> (<%= results[i].address.coord %> )</td>
+                        <td>
+                            <form action="/showDoc" method="GET">
+                                <button class="btn btn-secondary" name="restaurant" value=<%= results[i]._id %>  type="submit">CLICK TO SHOW</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/delete" method="GET">
+                                <button class="btn btn-secondary" name="restaurant" value=<%= results[i]._id %> type="submit">CLICK TO SHOW</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/showRate" method="GET">
+                                <button class="btn btn-secondary" name="restaurant" value=<%= results[i]._id %> type="submit">CLICK TO SHOW</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/uploadDoc" method="GET">
+                                <button class="btn btn-secondary" name="restaurant" value=<%= results[i]._id %>  type="submit">CLICK TO SHOW</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% } %>
+            </table>
+        <% } %>
+        <p><a href="/"><button class="btn btn-primary">Home</button></a></p>
+	</div>
+    </body>
+</html>

@@ -1,0 +1,59 @@
+<html>
+<head>
+	<title>Restaurant</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	
+<style>
+.jumbotron {
+  padding-top : 5em;
+  padding-bottom : 1em;
+  margin-left : 0;
+  margin-right : 0;
+  margin-bottom : 1em;
+  background : #2286BB;
+  color : white;
+}
+
+.container-fluid{
+  padding: 0;
+}
+
+.createRow{
+  padding-left : 0.5em;
+  margin: 1em 0em 1em 0em;
+}
+</style>
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+	<div class="container-fluid">
+		<div class="createRow">
+				<form action="/logout" method="GET">
+		    	<button class="btn btn-primary" value="logout" type="submit">Logout</button>
+		    </form>
+	    </div>
+		<div class="jumbotron text-center">
+			<h1 class="display-1">Restaurants</h1>
+		    <p><b><%= message %></b></p>
+		    <p><b>Showing documents</b></p>
+		</div>
+		<div class="createRow">
+			<a href="/create"><button type="button" class="btn btn-secondary">Create New Restaurant</button></a>
+			<a href="/search"><button type="button" class="btn btn-secondary">Search</button></a>
+  		</div>
+	    <form action=""" method="GET">
+	  		<table class="table table-hover table-striped table-dark table-scroll">
+	   			<thead>
+				<tr><th>Name</th></tr>
+				</thead>
+
+				</tbody>
+			</table>
+
+		</form>
+
+	</div>
+
+</body>
+</html>

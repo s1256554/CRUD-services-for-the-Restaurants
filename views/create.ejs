@@ -1,0 +1,87 @@
+<html>
+<head>
+	<title>Create New Restaurant</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	
+<style>
+.jumbotron {
+  padding : 1em 0em 1em 1em;
+  margin : 0em 0em 0.5em 0em;
+  background : #2286BB;
+  color : white;
+}
+.form-group{
+  margin-bottom: 1em;
+}
+
+.container-fluid{
+  padding : 0;
+}
+
+.createPanel{
+  margin : 1.5em 0em 0em 1.5em;
+}
+
+#errMsg{
+  color : #FE4848;
+}
+</style>
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+	<div class="container-fluid">
+		<div class="jumbotron">
+			<h3><b>Create New Restaurnat</b></h3>
+		</div>
+	</div>
+	<div class="container-fluid createPanel">
+		<form action="/createRest" method="GET">
+			<div class="form-group col-md-11">
+				<label for="rname">Name</label> 
+				<input name="rname" class="form-control" id="rname" type="text">
+			</div>
+			<div class="form-group col-md-11">
+				<label for="borough">Borough</label>
+				<input name="borough" class="form-control" id="borough" type="text"/>
+			</div>
+			<div class="form-group col-md-11">
+				<label for="cuisine">Cuisine</label>
+				<input name="cuisine" class="form-control" id="cuisine" type="text"/>
+			</div>
+			<div class="form-group col-md-11">
+				<label for="street">Street</label>
+				<input name="street" class="form-control" id="street" type="text"/>
+			</div>
+			<div class="form-group col-md-11">
+				<label for="building">Building</label>
+				<input name="building" class="form-control" id="building" type="text"/>
+			</div>
+			<div class="form-group col-md-11">
+				<label for="zip">Zipcode</label>
+				<input name="zip" class="form-control" id="zip" type="text"/>
+			</div>
+			<div class="form-group col-md-11">
+				<label for="coordlon">GPS Coordinates (lon.)</label>
+				<input name="coordlon" class="form-control" id="coordlon" type="text"/>
+			</div>
+			<div class="form-group col-md-11">
+				<label for="coordlat">GPS Coordinates (lat.)</label>
+				<input name="coordlat" class="form-control" id="coordlat" type="text"/>
+			</div>
+			<div class="form-group col-md-11">
+				<label for="score">Score</label>
+				<input name="score" class="form-control" id="score" type="text"/>
+			</div>
+			<div class="form-group col-md-11">
+				<label for="samplefile">Photo</label><br>
+				<input type="file" name="samplefile" class="form-control-file" id="samplefile">
+			</div>
+			<div class="form-group col-md-11">
+			<button class="btn btn-primary" value="confirm" type="submit">Create</button>
+			</div>
+		    <div id="errMsg"><b><%= message %></b></div>
+		</form>
+    </div>
+
+</body>
+</html>

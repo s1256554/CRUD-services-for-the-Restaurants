@@ -1,0 +1,54 @@
+<html>
+<head>
+	<title></title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	
+<style>
+.jumbotron {
+  padding : 1em 0em 1em 1em;
+  margin : 0em 0em 0.5em 0em;
+  background : #2286BB;
+  color : white;
+}
+
+.container-fluid{
+  padding : 0;
+}
+
+.container{
+  padding : 1em; 
+}
+
+.displayPanel{
+  margin : 1.5em 0em 0em 1.5em;
+}
+
+
+</style>
+
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+	<div class="container-fluid">
+		<div class="jumbotron">
+			<h3><b><%= title %></b></h3>
+		</div>
+	</div>
+	<div class="container-fluid displayPanel">
+		<p>Name : <%= title %></p>
+		<p>Borough : <%= borough %></p>
+		<p>Cuisine : <%= cuisine %></p>
+		<p>Street : <%= street %></p>
+		<p>Building : <%= building %></p>
+		<p>Zipcode : <%= zipcode %></p>
+		<p>GPS : <%= coord %></p>
+		<p>Score : </p>
+		<p>Created by : </p>
+		<button class="btn btn-primary">Rate</button>
+		<button class="btn btn-primary">Edit</button>
+		<button class="btn btn-primary">Delete</button>
+		<a href="/"><button class="btn btn-primary">Back</button></a>
+	</div>
+	
+</body>
+</html>

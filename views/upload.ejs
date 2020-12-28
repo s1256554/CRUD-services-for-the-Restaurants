@@ -1,0 +1,17 @@
+<html>
+    <body>
+        <b><%= message %></b><br>
+        <% if(mimetype!=null){ %> 
+            <b>Current Document: </b><br>
+            <img src='/img/<%= restaurantid %>/' />
+        <% }else{ %> 
+            <b>No image available</b>
+        <% } %> 
+        <% if(isOwner){ %> 
+            <form ref='uploadform' action="/upload" method="POST" enctype="multipart/form-data">
+                <input name="foo" type="file" />
+                <button value="upload" type="submit">UPLOAD</button>
+            </form>
+        <% } %> 
+    </body>
+</html>
