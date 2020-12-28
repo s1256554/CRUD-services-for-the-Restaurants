@@ -51,8 +51,9 @@
                     <th>Address</th>
                     <th>Document</th>
                     <th>Delete</th>
-                    <th>rate</th>
-                    <th>photo</th>
+                    <th>Update</th>
+                    <th>Rate</th>
+                    <th>Photo</th>
                 </tr>
                 <% for(var i=0;i<results.length;i++){ %>
                     <tr>
@@ -67,6 +68,11 @@
                         </td>
                         <td>
                             <form action="/delete" method="GET">
+                                <button class="btn btn-secondary" name="restaurant" value=<%= results[i]._id %> type="submit">CLICK TO SHOW</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/update" method="GET">
                                 <button class="btn btn-secondary" name="restaurant" value=<%= results[i]._id %> type="submit">CLICK TO SHOW</button>
                             </form>
                         </td>
