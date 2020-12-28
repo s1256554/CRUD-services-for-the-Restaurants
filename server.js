@@ -240,7 +240,77 @@ const showDocHandler = (req, res, query)=>{
     }
 };
 
+const updateHandler = (req, res, query)=>{
+    const client = new MongoClient(mongourl);
+    console.log("restaurant id: "+query.restaurant);
+    req.session.restaurant=query.restaurant;
+    var restaurantid= new mongo.ObjectID(query.restaurant);
+    var uid=new mongo.ObjectID(req.session.user._id);
+    var isOwner=false;
+    try{
+        client.connect((err) =>{
+            assert.equal(null,err);
+            console.log("Connected successfully to server");
+            const db = client.db(dbName);
+            if(req.session.user._id==data.owner){
+                isOwner=true;
+                db.collection('restaurants').findOne({_id:restaurantid}).then((data)=>{
+                    console.log("restaurant: "+data.name);
+                    var restaurantName=data.name;
+                    var restaurantBor=data.borough;
+                    var restaurantCui=data.cuisine;
+                    var restaurantSt=data.address.street;
+                    var restaurantbld=data.address.building;
+                    var restaurantzip=data.address.zipcode;
+                    var restaurantcoord=data.address.coord;
+                    
+                    db.collection('restaurants').findOne({restaurant:restaurantid,user:uid,}).then((found)=>{
+                        console.log("user: "+req.session.user.name);
+                        res.status(200).render('update',{rname: restaurantName, borough:restaurantBor,cuisine:restaurantCui, street:restaurantSt,building:restaurantbld,zipcode:restaurantzip,coord:restaurantcoord});
+                    });
+                });
+            }
+        });
+    }catch(e){
+        console.log("err: "+e);
+        res.status(404).render('client', {message: `${req.path} - Unknown request!` });
+    }finally{
+        client.close();
+    }
+};
 
+
+const DeleteHandler = (req, res, query) =>{
+    const client = new MongoClient(mongourl);
+    console.log("restaurant id: "+query.restaurant);
+    req.session.restaurant=query.restaurant;
+    var restaurantid= new mongo.ObjectID(query.restaurant);
+    var uid=new mongo.ObjectID(req.session.user._id);
+    var isOwner = false;
+    try{
+        client.connect((err) =>{
+            //assert.equal(null,err);
+            console.log("Connected successfully to server");
+            const db = client.db(dbName);
+            db.collection('restaurants').findOne({restaurant:restaurantid}).then((data)=>{
+                console.log("user: "+req.session.user.name);
+                if(req.session.user._id==data.owner){
+                    isOwner=true;
+                    db.collection('restaurants').deleteOne({restaurant: restaurantid});
+                }
+                else{
+                    res.status(200).render('search', {message: 'You are not the owner of this restaurant'});
+                }
+                res.status(200).render('update',{title:restaurantName,borough:restaurantBor,cuisine:restaurantCui, street:restaurantSt,building:restaurantbld,zipcode:restaurantzip,coord:restaurantzip});
+            });
+        });
+        client.close();
+    }catch(e){
+        console.log(e);
+        res.status(404).render('client', {message: `${req.path} - Restaurant cannot be deleted!` });
+    } 
+                
+}
 
 const createHandler = (req, res, query) =>{
     var restname = query.rname;
@@ -280,19 +350,10 @@ const createHandler = (req, res, query) =>{
     }
 };
 
-const showDetailssHander = (req, res, query)=>{
-    var restaurantid=new mongo.ObjectID(req.session.restaurant);
-    req.session.restaurant=null;
-    var id = new mongo.ObjectID(req.session.user._id);
-    var rating=query.rate;
-    console.log("restaurant: "+restaurantid);
-    const client=new MongoClient(mongourl);
-}
-
 const getUpload=(req,res)=>{
     req.session.restaurant=req.query.restaurant;
     var restaurantid=new mongo.ObjectID(req.query.restaurant);
-    var photo=null, mimetype=null, isOwner=true;
+    var photo=null, mimetype=null, isOwner=false;
     console.log("restaurant: "+restaurantid);
     const client=new MongoClient(mongourl);
     try{
@@ -306,6 +367,8 @@ const getUpload=(req,res)=>{
                 console.log("user: "+req.session.user._id);
                 console.log("mimetype: "+data.mimetype);
                 console.log("image: "+data.photo);
+                if(req.session.user._id==data.owner)
+                    isOwner=true;
                 if(data.mimetype){
                     photo=data.photo;
                     mimetype=data.mimetype;
@@ -435,6 +498,20 @@ app.get('/createRest', (req, res) =>{
        res.status(200).render('login',{message: ""});
     else
         createHandler(req, res, req.query);
+});
+
+app.get('/delete', (req, res) =>{
+    if(!req.session.user)
+       res.status(200).render('login',{message: ""});
+    else
+        DeleteHandler(req, res, req.query);
+});
+
+app.get('/update', (req, res) =>{
+    if(!req.session.user)
+       res.status(200).render('login',{message: ""});
+    else
+        updateHandler(req, res, req.query);
 });
 
 app.get('/display', (req, res) =>{
