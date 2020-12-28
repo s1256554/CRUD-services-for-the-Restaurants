@@ -7,3 +7,7 @@ Function of the Application
 4. Create restaurant's document
 5. Upload photo of the restaurant
 6. Rate the restaurant
+
+# Created by 
+StudentID : s12565548 <br>
+StudentID : s12553513
